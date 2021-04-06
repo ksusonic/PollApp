@@ -41,6 +41,10 @@ class PollQuestion(models.Model):
     question = models.CharField(max_length=255, default="Новый вопрос", verbose_name="Вопрос")
     question_type = models.CharField(max_length=1, choices=QUESTION_TYPES, default=TEXT)
 
+    @property
+    def vote_count(self):
+        return self.vote_set.count()
+
     def __str__(self):
         return self.question
 

@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Poll, PollQuestion, Answer
+from .models import Poll, PollQuestion, Vote
 
 
 class PollSerializer(ModelSerializer):
@@ -10,14 +10,16 @@ class PollSerializer(ModelSerializer):
         ]
 
 
-# class QuestionsInPollSerializer(ModelSerializer):
-#     class Meta:
-#         model = Q
+class VoteSerializer(ModelSerializer):
+    class Meta:
+        model = Vote
+        fields = ('id', 'answer_text')
 
 
-class PollQuestionSerializer(ModelSerializer):
+class QuestionListSerializer(ModelSerializer):
     class Meta:
         model = PollQuestion
         fields = [
-            'poll', 'question', 'question_type'
+            'id', 'question', 'question_type'
         ]
+
