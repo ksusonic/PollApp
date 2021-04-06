@@ -1,14 +1,20 @@
 from django.contrib import admin
 from .models import Poll, PollQuestion
 
-
 # Register your models here.
-@admin.register(Poll)
+admin.site.site_header = "Приложение для опросов"
+admin.site.site_title = "Приложение для опросов - Панель управления"
+
+
+class PollQuestions(admin.TabularInline):
+    model = PollQuestion
+
+
 class PollAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'active'
     )
-    list_filter = ('id',)
+    inlines = [PollQuestions]
 
 
-admin.site.register(PollQuestion)
+admin.site.register(Poll, PollAdmin)

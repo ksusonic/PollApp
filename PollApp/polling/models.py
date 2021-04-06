@@ -25,11 +25,21 @@ class Poll(models.Model):
 
 class PollQuestion(models.Model):
     class Meta:
-        verbose_name = "Вопрос в опросе"
-        verbose_name_plural = "Вопросы в опросах"
+        verbose_name = "Вопрос"
+        verbose_name_plural = "Вопросы"
+    TEXT = 'T'
+    ONE_ANSWER = 'O'
+    MANY_ANSWERS = 'M'
 
+    QUESTION_TYPES = [
+        (TEXT, 'Текстовый ответ'),
+        (ONE_ANSWER, 'Вопрос с одним ответом'),
+        (MANY_ANSWERS, 'Вопрос с несколькими ответами')
+    ]
     poll = models.ForeignKey(Poll, verbose_name="Опрос", on_delete=models.CASCADE)
     question = models.CharField(max_length=255, default="Новый вопрос", verbose_name="Вопрос")
+    question_type = models.CharField(max_length=1, choices=QUESTION_TYPES, default=TEXT)
+    count = models.PositiveIntegerField(default=0, verbose_name="Кол-во голосов", editable=False)
 
     def __str__(self):
         return self.question
