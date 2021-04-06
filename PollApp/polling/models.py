@@ -27,6 +27,7 @@ class PollQuestion(models.Model):
     class Meta:
         verbose_name = "Вопрос"
         verbose_name_plural = "Вопросы"
+
     TEXT = 'T'
     ONE_ANSWER = 'O'
     MANY_ANSWERS = 'M'
@@ -39,7 +40,19 @@ class PollQuestion(models.Model):
     poll = models.ForeignKey(Poll, verbose_name="Опрос", on_delete=models.CASCADE)
     question = models.CharField(max_length=255, default="Новый вопрос", verbose_name="Вопрос")
     question_type = models.CharField(max_length=1, choices=QUESTION_TYPES, default=TEXT)
-    count = models.PositiveIntegerField(default=0, verbose_name="Кол-во голосов", editable=False)
 
     def __str__(self):
         return self.question
+
+
+class Vote(models.Model):
+    class Meta:
+        verbose_name = "Ответ"
+        verbose_name_plural = "Ответы"
+        ordering = ['id']
+
+    questions = models.ForeignKey(PollQuestion, on_delete=models.CASCADE)
+    answer_text = models.CharField(max_length=255, default="ответ", verbose_name="Текст ответа", null=False)
+
+    def __str__(self):
+        return self.answer_text

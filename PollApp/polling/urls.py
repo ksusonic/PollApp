@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import Polls
+from .views import ActivePollsViewSet, PollDetail
 
 urlpatterns = [
-    path('', Polls.as_view(), name='quiz'),
+    path('polls', ActivePollsViewSet.as_view(), name="Active polls"),
+    path('polls/<int:pk>', PollDetail.as_view(), name="Poll on id")
 
 ]
