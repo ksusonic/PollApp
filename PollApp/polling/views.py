@@ -5,5 +5,5 @@ from .serializers import PollSerializer
 
 class Polls(generics.ListAPIView):
     serializer_class = PollSerializer
-    queryset = PollModel.objects.all()
+    queryset = PollModel.objects.all().filter(PollModel.active)
 

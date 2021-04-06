@@ -3,4 +3,5 @@ from .views import Polls
 
 urlpatterns = [
     path('', Polls.as_view(), name='quiz'),
+
 ]
