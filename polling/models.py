@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Poll(models.Model):
@@ -55,8 +56,11 @@ class Vote(models.Model):
         verbose_name_plural = "Ответы"
         ordering = ['id']
 
-    questions = models.ForeignKey(PollQuestion, on_delete=models.CASCADE)
+        unique_together = ('question', 'user_id')
+
+    question = models.ForeignKey(PollQuestion, on_delete=models.CASCADE)
     answer_text = models.CharField(max_length=255, default="ответ", verbose_name="Текст ответа")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.answer_text

@@ -1,11 +1,7 @@
-from django.urls import path, include
 from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'polls', views.ActivePollsViewSet)
+router.register('polls', views.ActivePolls)
 
-
-urlpatterns = [
-    path('', include(router.urls)),
-]
+urlpatterns = router.urls

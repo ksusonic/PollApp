@@ -1,18 +1,18 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework import viewsets
 
 from .models import Poll as PollModel, PollQuestion as QuestionModel
 from .serializers import PollSerializer, QuestionListSerializer
 
 
-class ActivePollsViewSet(viewsets.ModelViewSet):
+class ActivePolls(viewsets.ReadOnlyModelViewSet):
+    queryset = PollModel.objects.all()
     serializer_class = PollSerializer
-    queryset = PollModel.objects.all().order_by('date_start')
 
-
-class QuestionViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
-        queryset = QuestionModel.objects.all()
-        questions = get_object_or_404(queryset, pk=pk)
-        serializer = QuestionListSerializer
+        queryset = QuestionModel.objects.all().filter(poll_id=pk)
+        serializer = QuestionListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
