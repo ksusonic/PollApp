@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Poll, PollQuestion
+from .models import Poll, PollQuestion, User
 
 # Register your models here.
 admin.site.site_header = "Приложение для опросов"
@@ -18,3 +18,4 @@ class PollAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Poll, PollAdmin)
+admin.site.register(User)

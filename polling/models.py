@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
 class Poll(models.Model):
@@ -48,6 +48,17 @@ class PollQuestion(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class User(models.Model):
+    class Meta:
+        verbose_name = "Пользователь системы"
+        verbose_name_plural = "Пользователи системы"
+        ordering = ['id']
+    name = models.CharField(max_length=255, default="Петя Иванов", verbose_name="Имя пользователя")
+
+    def __str__(self):
+        return self.name
 
 
 class Vote(models.Model):
