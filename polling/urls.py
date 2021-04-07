@@ -1,7 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter()
+router.register(r'polls', views.ActivePollsViewSet)
+
+
 urlpatterns = [
-    path('polls', views.ActivePollsViewSet.as_view(), name="Active polls"),
-    # path('polls/<int:pk>', views.PollDetail.as_view(), name="Poll on id")
+    path('', include(router.urls)),
 ]
