@@ -56,7 +56,7 @@ class Vote(models.Model):
         ordering = ['id']
 
     questions = models.ForeignKey(PollQuestion, on_delete=models.CASCADE)
-    answer_text = models.CharField(max_length=255, default="ответ", verbose_name="Текст ответа", null=False)
+    answer_text = models.CharField(max_length=255, default="ответ", verbose_name="Текст ответа")
 
     def __str__(self):
         return self.answer_text
